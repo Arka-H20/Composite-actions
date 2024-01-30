@@ -24,5 +24,5 @@ runs:
       if: steps.cache.outputs.cache-hit != 'true' || inputs.my-option != 'true'
       run: |
         npm ci
-        run: echo "caching='${{ inputs.my-option }}'" >> $GITHUB_OUTPUT
+        run: echo "caching=${{ inputs.my-option }}" >> $GITHUB_OUTPUT
       shell: bash
