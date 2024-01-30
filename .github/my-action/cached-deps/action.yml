@@ -7,7 +7,8 @@ inputs:
     default: 'true'
 outputs:
   option-given:
-    value: ${{ steps.install }}
+    #description: 'setting up output'
+    value: ${{ steps.install.outputs.caching }}
 runs:
   using: 'composite'
   steps:
