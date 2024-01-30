@@ -22,7 +22,7 @@ runs:
     - name: Install dependencies
       id: install
       if: steps.cache.outputs.cache-hit != 'true' || inputs.my-option != 'true'
-      run: |
-        npm ci
-        run: echo "caching=${{ inputs.my-option }}" >> $GITHUB_OUTPUT
+      run: | 
+        npm ci --no-audit
+        run: echo "caching= '${{ inputs.my-option }}'">> $GITHUB_OUTPUT
       shell: bash
