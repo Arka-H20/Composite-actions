@@ -10,7 +10,12 @@ jobs:
       - name: Get code
         uses: actions/checkout@v3
       - name: using composite actions
+        id: comp-action
         uses: ./.github/my-action/cached-deps
+        with:
+          my-option: false
+      - name: Output information
+        run: echo "Caching used? ${{ steps.comp-action.outputs.option-given }}"
       - name: Lint code
         run: npm run lint
   test:
@@ -19,7 +24,10 @@ jobs:
       - name: Get code
         uses: actions/checkout@v3
       - name: using composite actions
+        id: comp-action
         uses: ./.github/my-action/cached-deps
+      - name: Output information
+        run: echo "Caching used? ${{ steps.comp-action.outputs.option-given }}"
       - name: Test code
         id: run-tests
         run: npm run test
@@ -36,7 +44,10 @@ jobs:
       - name: Get code
         uses: actions/checkout@v3
       - name: using composite actions
+        id: comp-action
         uses: ./.github/my-action/cached-deps
+      - name: Output information
+        run: echo "Caching used? ${{ steps.comp-action.outputs.option-given }}"
       - name: Build website
         run: npm run build
       - name: Upload artifacts

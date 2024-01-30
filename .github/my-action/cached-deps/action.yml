@@ -1,15 +1,27 @@
 name: 'Get & Cache Dependencies'
 description: 'Composite action for Cached dependencies steps'
+inputs:
+  my-option:
+    #description: 'setting up optional input'
+    required: false
+    default: 'true'
+outputs:
+  option-given:
+    value: ${{ steps.install }}
 runs:
   using: 'composite'
   steps:
     - name: Cache dependencies
+      if: inputs.my-option == 'true'
       id: cache
       uses: actions/cache@v3
       with:
         path: node_modules
         key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
     - name: Install dependencies
-      if: steps.cache.outputs.cache-hit != 'true'
-      run: npm ci
+      id: install
+      if: steps.cache.outputs.cache-hit != 'true' || inputs.my-option != 'true'
+      run: |
+        npm ci
+        run: echo "caching='${{ inputs.my-option }}'" >> $GITHUB_OUTPUT
       shell: bash
