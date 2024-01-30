@@ -23,6 +23,6 @@ runs:
       id: install
       if: steps.cache.outputs.cache-hit != 'true' || inputs.my-option != 'true'
       run: | 
-        npm ci --no-audit
+        npm install --no-audit
         run: echo "caching= '${{ inputs.my-option }}'">> $GITHUB_OUTPUT
       shell: bash
